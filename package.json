@@ -1,8 +1,11 @@
 {
   "name": "movieapp",
   "version": "0.1.0",
+  "homepage": "https://ezgidrmz.github.io/movieapp",
   "private": true,
   "scripts": {
+    "predeploy": "next build",
+    "deploy": "gh-pages -d out",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -19,6 +22,7 @@
     "autoprefixer": "^10.4.19",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.4",
+    "gh-pages": "^6.1.1",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.4"
   }
