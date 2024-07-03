@@ -1,11 +1,13 @@
 import React from 'react'
 import Image from 'next/image';
 
+// Movie API'den detay bilgilerini getiren fonksiyon
 const getMovie = async (id) => {
-    const res = await fetch(`https://api.themoviedb.org/3/movie/${id}$$?api_key=b3573e939842f9b8e715b292b9500933`)
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=b3573e939842f9b8e715b292b9500933`)
     return await res.json();
 }
 
+// Dinamik sayfa bileşeni
 const Page = async ({ params }) => {
     const id = params.id;
     const movieDetail = await getMovie(id)
@@ -25,3 +27,16 @@ const Page = async ({ params }) => {
 }
 
 export default Page
+
+// generateStaticParams fonksiyonu eklenmeli
+export async function generateStaticParams() {
+    // API'den film verilerini alarak dinamik yolları oluşturuyoruz
+    const res = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=b3573e939842f9b8e715b292b9500933');
+    const data = await res.json();
+    const movies = data.results;
+
+    // `id` parametresiyle statik yolları oluşturuyoruz
+    return movies.map((movie) => ({
+        id: movie.id.toString(), // id'yi string'e dönüştürüyoruz çünkü URL parametreleri genellikle string'dir
+    }));
+}
